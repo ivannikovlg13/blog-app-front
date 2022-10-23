@@ -37,7 +37,7 @@ export const AddPost = () => {
   return (
     <Paper style={{ padding: 30 }}>
       <Button variant="outlined" size="large">
-      Download preview
+        Download preview
       </Button>
       <input type="file" onChange={handleChangeFile} hidden />
       {imageUrl && (
@@ -56,11 +56,11 @@ export const AddPost = () => {
         placeholder="Article title..."
         fullWidth
       />
-      <TextField classes={{ root: styles.tags }} variant="standard" placeholder="Тэги" fullWidth />
+      <TextField classes={{ root: styles.tags }} variant="standard" placeholder="Tags" fullWidth />
       <SimpleMDE className={styles.editor} value={value} onChange={onChange} options={options} />
       <div className={styles.buttons}>
         <Button size="large" variant="contained">
-        Publish
+          Publish
         </Button>
         <a href="/">
           <Button size="large">Cancel</Button>
