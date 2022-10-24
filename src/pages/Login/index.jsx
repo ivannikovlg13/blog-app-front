@@ -10,10 +10,12 @@ import { fetchAuth, selectIsAuth } from '../../redux/slices/auth';
 import styles from './Login.module.scss';
 
 export const Login = () => {
+  const isAuth = useSelector(selectIsAuth);
+  const dispatch = useDispatch();
+
   const {
     register,
     handleSubmit,
-    setError,
     formState: { errors, isValid },
   } = useForm({
     defaultValues: {
@@ -23,7 +25,6 @@ export const Login = () => {
     mode: 'onChange',
   });
 
-  const dispatch = useDispatch();
   const onSubmit = async (values) => {
     const data = await dispatch(fetchAuth(values));
     if (!data.payload) {
@@ -33,7 +34,6 @@ export const Login = () => {
       window.localStorage.setItem('token', data.payload.token);
     }
   };
-  const isAuth = useSelector(selectIsAuth);
 
   if (isAuth) {
     return <Navigate to="/" />;
@@ -56,12 +56,13 @@ export const Login = () => {
         <TextField
           className={styles.field}
           label="Password"
+          type="password"
           error={Boolean(errors.password?.message)}
           helperText={errors.password?.message}
           {...register('password', { required: 'Write password' })}
           fullWidth
         />
-        <Button type="submit" size="large" variant="contained" fullWidth>
+        <Button disabled={!isValid} type="submit" size="large" variant="contained" fullWidth>
           Sign in
         </Button>
       </form>
